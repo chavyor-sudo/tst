@@ -1,4 +1,16 @@
 steps:
+  # שלב בדיקה: מדפיס את כל התיקיות והקבצים שהשרת של גוגל באמת רואה
+  - name: 'ubuntu'
+    args: ['ls', '-R']
+
+  # שלב 1 המתוקן: הוספת הגדרת המיקום המדויק בשרת
+  - name: 'python'
+    entrypoint: pip
+    dir: '.'
+    args: ["install", "-r", "utils/requirements.txt", "--user"]
+
+
+steps:
   # Step 1: Install Python dependencies
   - name: 'python'
     entrypoint: pip
