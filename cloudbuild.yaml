@@ -1,24 +1,13 @@
-steps:
-  # שלב בדיקה: מדפיס את כל התיקיות והקבצים שהשרת של גוגל באמת רואה
-  - name: 'ubuntu'
-    args: ['ls', '-R']
-
-  # שלב 1 המתוקן: הוספת הגדרת המיקום המדויק בשרת
-  - name: 'python'
-    entrypoint: pip
-    dir: '.'
-    args: ["install", "-r", "utils/requirements.txt", "--user"]
-
 
 steps:
-  # Step 1: Install Python dependencies
-  - name: 'python'
-    entrypoint: pip
+  # Step 1: Install Python dependencies using Google's builder
+  - name: 'gcr.io/cloud-builders/python'
+    entrypoint: 'pip'
     args: ["install", "-r", "utils/requirements.txt", "--user"]
 
   # Step 2: Run the script to upload DAGs and Data to Composer bucket
-  - name: 'python'
-    entrypoint: python
+  - name: 'gcr.io/cloud-builders/python'
+    entrypoint: 'python'
     args:
       - "utils/add_dags_to_composer.py"
       - "--dags_directory=${_DAGS_DIRECTORY}"
